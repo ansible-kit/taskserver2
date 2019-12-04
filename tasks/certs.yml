@@ -28,6 +28,13 @@
         creates: "{{ taskd_install_location }}/pki/ca.key.pem"
         chdir: "{{ taskd_install_location }}/pki/"
 
+    - name: Ensure certs directory exists
+      file:
+        path: "{{ taskd_data_location }}/certs"
+        state: directory
+        owner: "{{ taskd_user }}"
+        group: "{{ taskd_group }}"
+
     - name: Copy generated certs to data location
       copy:
         src: "{{ taskd_install_location }}/pki/{{ item.0 }}"
