@@ -6,3 +6,4 @@ taskd_prerequisites:
   - libgnutls-dev
   - uuid-dev
   - curl
+  - python-cryptography

@@ -38,3 +38,12 @@
       - '^[a-f0-9]{8}-([a-f0-9]{4}-){3}[a-f0-9]{12}$'
     use_regex: true
   register: _taskd_user_ids
+
+- name: Check if {{ taskd_user }} owns {{ taskd_data_location }}
+  file:
+    path: "{{ taskd_data_location }}"
+    state: directory
+    recurse: yes
+    owner: "{{ taskd_user }}"
+    group: "{{ taskd_group }}"
+
