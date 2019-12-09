@@ -122,6 +122,16 @@ taskd_android_config: true
 Then, you can set `include ~/.taskd/taskd.rc` in your `taskrc` file and
 taskwarrior should be ready to sync with taskserver.
 
+Or
+
+```shell
+vagrant ssh
+yes | task
+cat ~/.taskd/vagrant.taskrc >> .taskrc
+task add test
+task sync init
+```
+
 The android config file will be also placed under
 `taskd_taskwarrior_config_path`. You can copy-paste its contents to the setting
 of the [android app](https://f-droid.org/en/packages/kvj.taskw/).
