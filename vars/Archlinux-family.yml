@@ -4,6 +4,6 @@ taskd_prerequisites:
   - make
   - gcc
   - gnutls
-  #  - uuid (AUR)
+  - util-linux  # for uuidd
   - curl
   - python-cryptography
