@@ -1,0 +1,13 @@
+---
+
+- name: Install Taskd prerequisites with pacman
+  pacman:
+    name: "{{ taskd_prerequisites }}"
+    state: present
+    update_cache: true
+
+- name: Install certtool with pacman
+  pacman:
+    name: gnutls
+    state: present
+  when: taskd_selfsigned | bool

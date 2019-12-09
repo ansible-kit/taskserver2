@@ -1,0 +1,9 @@
+---
+taskd_prerequisites:
+  - cmake
+  - make
+  - gcc
+  - gnutls
+  #  - uuid (AUR)
+  - curl
+  - python-cryptography
