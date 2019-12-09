@@ -7,6 +7,7 @@
       - bugwarrior
     state: latest
   delegate_to: localhost
+  ignore_errors: true
 
 - name: Ensure download directory exists
   become: false
