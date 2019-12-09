@@ -54,21 +54,17 @@ Vagrant.configure("2") do |config|
     ansible.playbook = "tests/vagrant.yml"
     ansible.install_mode = "pip"
     ansible.extra_vars = {
-    taskd_organizations: ["OBS"],
+    taskd_organizations: ["Hashicorp"],
     taskd_users: [
       {
-        name: "laurent_g",
-        organization: "OBS"
-      },
-      {
-        name: "First Last",
-        organization: "Public"
+        name: "vagrant",
+        organization: "Hashicorp"
       },
     ],
-    taskd_selfsigned_organization: "OBS",
-    taskd_selfsigned_country: "FR",
-    taskd_selfsigned_state: "AQ",
-    taskd_selfsigned_locality: "Bx",
+    taskd_selfsigned_organization: "Hashicorp",
+    taskd_selfsigned_country: "US",
+    taskd_selfsigned_state: "California",
+    taskd_selfsigned_locality: "LA",
     taskd_taskwarrior_user: "vagrant",
     taskd_selfsigned_clients_download: true,
     taskd_selfsigned_clients_download_dir: "~/.taskd/",
