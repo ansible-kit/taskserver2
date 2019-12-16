@@ -4,6 +4,7 @@
   package:
     name:
       - taskwarrior
+      - taskopen
       - bugwarrior
     state: latest
   delegate_to: localhost
