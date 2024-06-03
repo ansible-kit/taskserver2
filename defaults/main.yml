@@ -89,7 +89,11 @@ taskd_selfsigned_clients_download: true
 
 # Where to download the client certificates if
 # `taskd_selfsigned_clients_download` is true
-taskd_selfsigned_clients_download_dir: ~/.taskd
+# taskwarrior doesn't work with ~ in paths so we have to write home dir
+# explicitly.
+# ? Not sure if ansible_user_dir points to master or host user dir. We
+# need master dir (where clients will work - localhost).
+taskd_selfsigned_clients_download_dir: "{{ ansible_user_dir }}/.taskd"
 # }}}
 # Integrations {{{
 # Whether to create a taskwarrior config file that can be included in a taskrc.
