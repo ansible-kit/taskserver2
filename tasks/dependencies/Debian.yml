@@ -5,9 +5,11 @@
     name: "{{ taskd_prerequisites }}"
     state: present
     update_cache: true
+  become: true
 
 - name: Install certtool with apt
   apt:
     name: gnutls-bin
     state: present
   when: taskd_selfsigned | bool
+  become: true

@@ -8,6 +8,7 @@
     group: root
     mode: 0o644
   notify: taskd restart service
+  become: true
 
 - name: Upload task-sync service file and timer
   template:
@@ -20,3 +21,4 @@
     - taskwarrior-sync.service.j2
     - taskwarrior-sync.timer.j2
   notify: taskd restart sync timer
+  become: true
