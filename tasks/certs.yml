@@ -12,21 +12,33 @@
       now: "+0s"
   register: _result
   when: _result.stat.exists | bool
+  become: true
 
 - name: Generate certificates
   block:
+    - name: Ensure taskd install location and pki directory exist (even if we installed in from package manager)
+      file:
+        path: "{{ taskd_install_location }}/pki"
+        owner: "{{ taskd_user }}"
+        group: "{{ taskd_group }}"
+        mode: 0o755
+        state: directory
+      become: true
+
     - name: Copy selfsigning vars file to location
       template:
         src: ssl_vars.j2
         dest: "{{ taskd_install_location }}/pki/vars"
         owner: "{{ taskd_user }}"
         group: "{{ taskd_group }}"
+      become: true
 
     - name: Run generate cert script
       shell: ./generate
       args:
         creates: "{{ taskd_install_location }}/pki/ca.key.pem"
         chdir: "{{ taskd_install_location }}/pki/"
+      become: true
 
     - name: Ensure certs directory exists
       file:
@@ -34,6 +46,7 @@
         state: directory
         owner: "{{ taskd_user }}"
         group: "{{ taskd_group }}"
+      become: true
 
     - name: Copy generated certs to data location
       copy:
@@ -61,15 +74,17 @@
           - taskd_ca_cert
           - taskd_ca_key
       notify: taskd restart service
+      become: true
 
     - name: Run generate client cert script
       shell: "./generate.client {{ item.name|replace(' ', '_') }}"
       args:
         chdir: "{{ taskd_install_location }}/pki/"
-        creates: "{{ taskd_user_cert_location }}/{{
+        creates: "{{ taskd_install_location }}/pki/{{
                       item.name|replace(' ', '_') }}.key.pem"
       register: result
       loop: "{{ taskd_users }}"
+      become: true
 
     - name: Create user certs folder
       file:
@@ -78,6 +93,7 @@
         group: "{{ taskd_group }}"
         mode: 0o755
         state: directory
+      become: true
 
     - name: Move generated user certs
       command: >-
@@ -88,6 +104,7 @@
             }}.key.pem
           {{ taskd_user_cert_location }}/
       when: result.results[index] is changed
+      become: true
       loop: "{{ taskd_users }}"
       loop_control:
         index_var: index
