@@ -25,7 +25,7 @@ taskd_server: "{{ ansible_default_ipv4['address'] }}"
 taskd_port: 53589
 
 # Location to install taskd to
-taskd_install_location: /opt/taskd
+taskd_install_location: /usr/share/taskd
 
 # Location for taskd data, sets the $TASKDDATA variable (recommended is to NOT
 # put it under your taskd exec dir)
@@ -67,7 +67,7 @@ taskd_selfsigned: true
 taskd_selfsigned_bits: 4096
 
 # Common Name for your certificate (MUST match hostname!)
-taskd_selfsigned_cn: "{{ ansible_hostname }}"
+taskd_selfsigned_cn: "{{ ansible_nodename }}"
 
 # Days the certificate is valid for
 taskd_selfsigned_expiration_days: 365
@@ -89,7 +89,7 @@ taskd_selfsigned_clients_download: true
 
 # Where to download the client certificates if
 # `taskd_selfsigned_clients_download` is true
-taskd_selfsigned_clients_download_dir: ~
+taskd_selfsigned_clients_download_dir: ~/.taskd
 # }}}
 # Integrations {{{
 # Whether to create a taskwarrior config file that can be included in a taskrc.
