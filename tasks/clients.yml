@@ -1,14 +1,15 @@
 ---
 
-- name: Ensure taskwarrior / bugwarrior packages are installed
-  package:
-    name:
-      - taskwarrior
-      - taskopen
-      - bugwarrior
-    state: latest
-  delegate_to: localhost
-  ignore_errors: true
+# Used nix for that
+# - name: Ensure taskwarrior / bugwarrior packages are installed
+#   package:
+#     name:
+#       - taskwarrior
+#       - taskopen
+#       - bugwarrior
+#     state: latest
+#   delegate_to: localhost
+#   ignore_errors: true
 
 - name: Ensure download directory exists
   become: false
@@ -41,13 +42,14 @@
         dest: "{{ taskd_selfsigned_clients_download_dir }}/"
         flat: true
   when: taskd_selfsigned_clients_download | bool
+  become: true
 
 - name: Create taskwarrior config
   become: false
   template:
     src: taskwarrior.rc.j2
     #dest: "{{ taskd_taskwarrior_config_path }}"
-    dest: "{{ taskd_selfsigned_clients_download_dir }}/{{ item.name }}.taskrc"
+    dest: "{{ taskd_selfsigned_clients_download_dir }}/{{ item.name | replace(' ', '_') }}.taskrc"
   loop: "{{ taskd_users }}"
   loop_control:
     index_var: index
@@ -59,7 +61,7 @@
   template:
     src: taskwarrior.android.rc.j2
     # dest: "{{ taskd_taskwarrior_config_path }}.android"
-    dest: "{{ taskd_selfsigned_clients_download_dir }}/{{ item.name }}.taskrc.android"
+    dest: "{{ taskd_selfsigned_clients_download_dir }}/{{ item.name | replace(' ', '_')  }}.taskrc.android"
   loop: "{{ taskd_users }}"
   loop_control:
     index_var: index
