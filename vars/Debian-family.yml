@@ -3,7 +3,9 @@ taskd_prerequisites:
   - cmake
   - make
   - g++
-  - libgnutls-dev
+  # Was renamed in newer versions of Ubuntu.
+  # - libgnutls-dev
   - uuid-dev
   - curl
-  - python-cryptography
+  # Was renamed in newer versions of Ubuntu.
+  # - python-cryptography

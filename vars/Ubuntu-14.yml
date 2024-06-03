@@ -1,1 +1,4 @@
 ---
+taskd_prerequisites:
+  - libgnutls-dev
+  - python-cryptography

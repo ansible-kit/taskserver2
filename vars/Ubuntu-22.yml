@@ -1,0 +1,4 @@
+---
+taskd_prerequisites:
+  - libgnutls28-dev
+  - python3-cryptography
