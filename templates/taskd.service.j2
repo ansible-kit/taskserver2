@@ -6,7 +6,7 @@ After=network.target
 Documentation=http://taskwarrior.org/docs/#taskd
 
 [Service]
-ExecStart=/usr/local/bin/taskd server --data {{ taskd_data_location }} --log=-
+ExecStart=/usr/bin/taskd server --data {{ taskd_data_location }} --log=-
 Type=simple
 User={{ taskd_user }}
 Group={{ taskd_group }}

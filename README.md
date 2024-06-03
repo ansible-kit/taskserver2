@@ -60,7 +60,7 @@ taskd_port: 53589
 # Download location for taskd tarball
 taskd_download_location: "{{ ansible_env.HOME }}/taskd"
 # Location to install taskd to
-taskd_install_location: /opt/taskd
+taskd_install_location: /usr/share/taskd
 # Location for taskd data, sets the $TASKDDATA variable (recommended is to NOT put it in your Taskd exec dir)
 taskd_data_location: /var/taskd
 # Location to save user.conf file to
@@ -82,7 +82,7 @@ taskd_selfsigned: true
 # Bits for SSL certificate (2048 or 4096)
 taskd_selfsigned_bits: 4096
 # Common Name for your certificate (MUST match hostname!)
-taskd_selfsigned_cn: "{{ ansible_hostname }}"
+taskd_selfsigned_cn: "{{ ansible_nodename }}"
 # Days the certificate is valid for
 taskd_selfsigned_expiration_days: 365
 # Certificate organization
@@ -113,7 +113,7 @@ taskwarrior:
 
 ```yaml
 taskd_selfsigned_clients_download: true
-taskd_selfsigned_clients_download_dir: ~/.taskd/
+taskd_selfsigned_clients_download_dir: "{{ ansible_user }}/.taskd/"
 taskd_taskwarrior_config: true
 taskd_taskwarrior_config_path: ~/.taskd/taskd.rc
 taskd_android_config: true
